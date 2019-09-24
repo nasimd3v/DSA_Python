@@ -1,56 +1,110 @@
-#Class For Linked List Node
+#Creating Node For Our Linked List
 class Node:
-    #This is Class Constructor
     def __init__(self,data):
-        # Node Data
         self.data = data
-        # Next Data Pointer default as None
         self.next = None
-# Class For Linked List Operations
+
 class LinkedList:
-     #This is Class Constructor
     def __init__(self):
-        # Linked List Head default as None
         self.head = None
 
-    # Insert Node on Head
-    def insertHead(self,data):
-        # Checking Linked List is Empty 
-        if self.head is None:
-            self.head = Node(data) # <= Creating Node Class Object with passing Data
-        else:
-            temp = self.head # <= Store old data on temp variable
-            self.head = Node(data) #<= Set New data as Head Node
-            self.head.next = temp # <= Set Head node's next node
-
-    def insertEnd(self,data):
-        if self.head is None:
-            self.insertHead(data) # <= if list is empty than create head node
-        else:
-            self.head.next = Node(data) #<= Set last node's next node as new data
-
-
-    # View Linked List 
-    def viewList(self):
-        if self.head is None:                   # <= Checking is Head is Empty That mean Linked List is Empty
-            print("Linked List is Empty")
-        else:
-            currentNode = self.head     # Set Head node on currentNode Variable
-            while currentNode is not None:   # While loop.... when current node is None than stop
-                print(currentNode.data,end=" => ")  # => Printing Current Node Data
-                currentNode = currentNode.next      # Increment Current Node
-
-
-
-if __name__ == '__main__':      
-
-    l = LinkedList()        # Creatinf Linked List Class Object
-
-
-    l.insertEnd("Mahamad")  # Inserting New Data on Linklist at end
-    l.insertEnd("Shamem")   # Inserting New Data on Linklist at end
-
-    l.insertHead("Nasim")   # Inserting New Data on Linklist at Head
-
-    l.viewList()            # Printing Linked list all Data (Nasim => Mahamad => Shamem =>)
+    def length(self):
+        currentNode = self.head
+        count = 0
+        while currentNode.next is not None:
+            count += 1
+            currentNode = currentNode.next
+        return count
     
+    
+    def insertHead(self,data):
+        if self.head is None:
+            self.head = Node(data)
+        else:
+            tempHead = self.head
+            self.head = Node(data)
+            self.head.next = tempHead
+
+    def insert(self,data):
+        if self.head is None:
+            self.head = Node(data)
+        else:
+            currentNode = self.head
+            while True:
+                if currentNode.next is None:
+                    currentNode.next = Node(data)
+                    break
+                currentNode = currentNode.next
+
+    def insertAt(self,position,data):
+         # Check If Enter Position Exist
+        if position < 0 or position > self.length():
+            # Print Error Message
+            print("Invalid Position") 
+
+        elif self.length() == position:
+            self.insert(data)
+
+        # If User want to add node on Position 0 that mean it is Head Node
+        elif position == 0 :
+            self.insertHead(data)
+        else:
+            currentNode = self.head
+            currentPositin = 0
+            while True:
+                if currentPositin == position:
+                    x = priviousNode.next = Node(data)
+                    x.next = currentNode
+                    break
+                priviousNode = currentNode
+                currentNode = currentNode.next
+                currentPositin +=1
+
+    def delete(self):
+        if self.head is not None:
+            currentNode = self.head
+            while currentNode.next is not None:
+                priviousNode = currentNode
+                currentNode = currentNode.next
+            priviousNode.next = None
+        else:
+            print("There Is Nothing To Delete!")
+
+    def deleteAt(self,position):
+        if self.length() == position:
+            self.deleteEnd()
+        else:
+            currentNode = self.head
+            currentPosition = 0
+            while True:
+                if currentPosition == position:
+                    #head =>[0]=>[1]=>[2]=>[3] ||  head =>[0]=>[1]=>__[3]__[2]none[3]
+                    priviousNode.next = currentNode.next
+                    currentNode.next = None
+                    break
+
+                priviousNode = currentNode
+                currentNode = currentNode.next
+                currentPosition += 1
+    def viewList(self):
+        if self.head is None:
+            print("Opps! Linked List Is Empty")
+        else:
+            currentNode = self.head
+            while currentNode is not None:
+                print(currentNode.data,end="\n")
+                currentNode = currentNode.next
+
+if __name__ == '__main__':
+    ll = LinkedList()
+
+    ll.insert("Nasim")
+    ll.insert("Mahamad")
+    ll.insert("Dinajpur Polytechnic Institute")
+    ll.viewList()
+    print("______________")
+    ll.insertAt(1,"Shamem")
+    ll.viewList()
+    print("______________")
+    ll.deleteAt(2)
+    ll.viewList()
