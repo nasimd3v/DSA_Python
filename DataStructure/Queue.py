@@ -10,6 +10,9 @@ class Queue:
 
     def viewQueue(self):
         print(self.items)
+      
+    def size(self):
+        print(len(self.items))
 
 q = Queue()
 q.enQueue("Shamem")
