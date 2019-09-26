@@ -92,7 +92,7 @@ class LinkedList:
         else:
             currentNode = self.head
             while currentNode is not None:
-                print(currentNode.data,end="\n")
+                print(currentNode.data,end=" => ")
                 currentNode = currentNode.next
 
 if __name__ == '__main__':
