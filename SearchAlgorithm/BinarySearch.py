@@ -1,6 +1,4 @@
 
-index = None
-
 def BinarySearch(arr,searchData):
     
     start = 0
